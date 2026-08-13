@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Resume Analysis</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/result.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>🤖 AI Resume Analysis</h1>
+
+<p>Powered by Google Gemini AI</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<h2>ATS SCORE</h2>
+
+<div class="circle">
+
+{{ ats_score }}%
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Professional Summary</h2>
+
+<p class="summary">
+
+{{ summary }}
+
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>💪 Strengths</h2>
+
+<ul>
+
+{% for item in strengths %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>❌ Missing Skills</h2>
+
+<ul>
+
+{% for item in missing_skills %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>🛠 Technical Skills</h2>
+
+<ul>
+
+{% for item in technical_skills %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>💼 Best Job Roles</h2>
+
+<ul>
+
+{% for role in job_roles %}
+
+<li>{{ role }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>🚀 Career Suggestions</h2>
+
+<ul>
+
+{% for suggestion in career_suggestions %}
+
+<li>{{ suggestion }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card interview">
+
+<h2>🎤 Interview Questions</h2>
+
+<ol>
+
+{% for question in interview_questions %}
+
+<li>{{ question }}</li>
+
+{% endfor %}
+
+</ol>
+
+</div>
+
+<div class="buttons">
+
+<a href="/" class="btn primary">
+
+🔄 Analyze Another Resume
+
+</a>
+
+<a href="/download" class="btn secondary">
+
+📄 Download Report
+
+</a>
+
+<a href="/dashboard" class="btn secondary">
+
+📊 Dashboard
+
+</a>
+
+<a href="/chat" class="btn primary">
+    🤖 AI Resume Chat
+</a>
+
+<a href="/mock-interview" class="btn primary">
+    🎤 Mock Interview
+</a>
+
+</div>
+
+<footer>
+
+<p>
+
+Made with ❤️ using Flask + Google Gemini AI
+
+</p>
+
+</footer>
+
+</div>
+
+</body>
+
+</html>

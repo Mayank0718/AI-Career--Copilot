@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Job Match | AI Career Copilot</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #081120, #111827, #312E81);
+            color: white;
+            padding: 45px 20px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+
+            background: linear-gradient(90deg, #60A5FA, #A855F7);
+            -webkit-background-clip: text;
+            color: transparent;
+
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: #CBD5E1;
+            font-size: 17px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+
+            backdrop-filter: blur(15px);
+
+            border-radius: 24px;
+            padding: 35px;
+
+            margin-bottom: 25px;
+
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 10px;
+
+            color: #E2E8F0;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 230px;
+
+            resize: vertical;
+
+            background: #0F172A;
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            color: white;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #7C3AED;
+
+            box-shadow:
+                0 0 20px rgba(124,58,237,0.25);
+        }
+
+        textarea::placeholder {
+            color: #64748B;
+        }
+
+        .btn {
+            margin-top: 20px;
+
+            padding: 15px 32px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(90deg, #2563EB, #7C3AED);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px rgba(124,58,237,0.4);
+        }
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 25px;
+        }
+
+        .info-box {
+            background: #0F172A;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .info-box .icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .info-box h3 {
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #94A3B8;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .navigation {
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            margin-top: 25px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+
+            padding: 13px 25px;
+
+            border-radius: 12px;
+
+            color: white;
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.08);
+
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+
+            margin-top: 35px;
+
+            color: #94A3B8;
+        }
+
+        @media(max-width: 768px) {
+
+            body {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 35px;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <h1>🎯 Resume vs Job Match</h1>
+
+        <p>
+            Discover how well your resume matches a target job using AI
+        </p>
+
+    </div>
+
+
+    <!-- Job Description Form -->
+
+    <div class="card">
+
+        <h2>📋 Paste Job Description</h2>
+
+        <form method="POST">
+
+            <label class="label">
+                Job Description
+            </label>
+
+            <textarea
+                name="job_description"
+                placeholder="Paste the complete job description here..."
+                required
+            ></textarea>
+
+            <button type="submit" class="btn">
+                🤖 Analyze Job Match
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Features -->
+
+    <div class="card">
+
+        <h2>🧠 What AI Will Analyze</h2>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+
+                <div class="icon">📊</div>
+
+                <h3>Match Score</h3>
+
+                <p>
+                    Get an overall compatibility score between your resume
+                    and the target job.
+                </p>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="icon">✅</div>
+
+                <h3>Matching Skills</h3>
+
+                <p>
+                    Identify the skills and technologies already present
+                    in your resume.
+                </p>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="icon">❌</div>
+
+                <h3>Missing Skills</h3>
+
+                <p>
+                    Find important skills mentioned in the job description
+                    that your resume lacks.
+                </p>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="icon">💡</div>
+
+                <h3>AI Suggestions</h3>
+
+                <p>
+                    Receive practical recommendations to improve your
+                    resume for the selected role.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if result %}
+
+<div class="card">
+
+    <h2>📊 Job Match Results</h2>
+
+    <div class="info-grid">
+
+        <div class="info-box">
+            <div class="icon">🎯</div>
+            <h3>Match Score</h3>
+            <p style="font-size:32px; font-weight:800; color:#60A5FA;">
+                {{ result.match_score }}%
+            </p>
+        </div>
+
+        <div class="info-box">
+            <div class="icon">👤</div>
+            <h3>Role Fit</h3>
+            <p>
+                {{ result.role_fit }}
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="info-box" style="margin-top:20px;">
+
+        <div class="icon">✅</div>
+
+        <h3>Matching Skills</h3>
+
+        <ul style="padding-left:25px; line-height:1.8; color:#CBD5E1;">
+
+            {% for skill in result.matching_skills %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+
+    <div class="info-box" style="margin-top:20px;">
+
+        <div class="icon">❌</div>
+
+        <h3>Missing Skills</h3>
+
+        <ul style="padding-left:25px; line-height:1.8; color:#CBD5E1;">
+
+            {% for skill in result.missing_skills %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <div class="info-box" style="margin-top:20px;">
+
+    <div class="icon">📊</div>
+
+    <h3>Keyword Coverage</h3>
+
+    <p style="font-size:32px; font-weight:800; color:#60A5FA;">
+        {{ result.keyword_coverage }}%
+    </p>
+
+</div>
+
+
+<div class="info-box" style="margin-top:20px;">
+
+    <div class="icon">🟢</div>
+
+    <h3>Matched Keywords</h3>
+
+    <ul style="padding-left:25px; line-height:1.8; color:#CBD5E1;">
+
+        {% for keyword in result.matched_keywords %}
+            <li>{{ keyword }}</li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+
+<div class="info-box" style="margin-top:20px;">
+
+    <div class="icon">⭐</div>
+
+    <h3>Important Keywords</h3>
+
+    <ul style="padding-left:25px; line-height:1.8; color:#CBD5E1;">
+
+        {% for keyword in result.important_keywords %}
+            <li>{{ keyword }}</li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+    <div class="info-box" style="margin-top:20px;">
+
+        <div class="icon">🔑</div>
+
+        <h3>Keyword Gaps</h3>
+
+        <ul style="padding-left:25px; line-height:1.8; color:#CBD5E1;">
+
+            {% for keyword in result.keyword_gaps %}
+                <li>{{ keyword }}</li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+
+    <div class="info-box" style="margin-top:20px;">
+
+        <div class="icon">💡</div>
+
+        <h3>AI Suggestions</h3>
+
+        <ul style="padding-left:25px; line-height:1.8; color:#CBD5E1;">
+
+            {% for suggestion in result.suggestions %}
+                <li>{{ suggestion }}</li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+    <!-- Navigation -->
+
+    <div class="navigation">
+
+        <a href="/" class="nav-btn">
+            🏠 Home
+        </a>
+
+        <a href="/dashboard" class="nav-btn">
+            📊 Dashboard
+        </a>
+
+        <a href="/mock-interview" class="nav-btn">
+            🎤 Mock Interview
+        </a>
+
+        <a href="/chat" class="nav-btn">
+            💬 AI Career Coach
+        </a>
+
+    </div>
+
+
+    <div class="footer">
+
+        Made with ❤️ using Flask + Gemini AI
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

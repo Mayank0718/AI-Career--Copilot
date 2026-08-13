@@ -1,0 +1,303 @@
+{% extends "layout.html" %}
+
+{% block title %}
+AI Career Copilot
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-rocket"></i>
+
+            AI Career Copilot
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="#">Home</a></li>
+
+            <li><a href="#">Features</a></li>
+
+            <li><a href="#">Dashboard</a></li>
+
+            <li><a href="#">Contact</a></li>
+
+        </ul>
+
+        <button class="login-btn">
+
+            Login
+
+        </button>
+
+    </nav>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+
+                🚀 AI Powered Career Assistant
+
+            </div>
+
+            <h1>
+
+                Build Your Career With AI
+
+            </h1>
+
+            <p>
+
+                Analyze your resume, improve ATS score,
+                practice AI interviews, receive career
+                roadmaps and land your dream job.
+
+            </p>
+
+            <div class="hero-buttons">
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+
+<input
+type="file"
+name="resume"
+id="resume"
+accept=".pdf"
+required
+style="display:none;"
+onchange="this.form.submit()"
+>
+
+<button
+type="button"
+class="primary-btn"
+onclick="document.getElementById('resume').click();"
+>
+
+<i class="fa-solid fa-upload"></i>
+
+Upload Resume
+
+</button>
+
+</form>
+
+<button class="secondary-btn">
+
+<i class="fa-solid fa-play"></i>
+
+Watch Demo
+
+</button>
+
+</div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<section class="dashboard-preview container">
+
+    <div class="dashboard-card glass">
+
+        <div class="dashboard-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+        </div>
+
+        <div class="dashboard-body">
+
+            <div class="score-box">
+                <h3>ATS Score</h3>
+                <h1>92%</h1>
+            </div>
+
+            <div class="skills-box">
+
+                <h3>Top Skills</h3>
+
+                <div class="skill">
+                    <span>Python</span>
+                    <div class="bar">
+                        <div style="width:90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <span>Java</span>
+                    <div class="bar">
+                        <div style="width:80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill">
+                    <span>SQL</span>
+                    <div class="bar">
+                        <div style="width:75%"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="stats container">
+
+    <div class="stat-card glass">
+
+        <h2>10K+</h2>
+
+        <p>Resumes Analysed</p>
+
+    </div>
+
+    <div class="stat-card glass">
+
+        <h2>95%</h2>
+
+        <p>ATS Accuracy</p>
+
+    </div>
+
+    <div class="stat-card glass">
+
+        <h2>24/7</h2>
+
+        <p>AI Support</p>
+
+    </div>
+
+</section>
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features container">
+
+    <h2 class="section-title">
+
+        Powerful AI Features
+
+    </h2>
+
+    <div class="feature-grid">
+
+        <div class="feature-card glass">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <h3>Resume Analyzer</h3>
+
+            <p>
+
+                Upload your resume and receive an AI-powered analysis with actionable suggestions.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card glass">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <h3>ATS Score Checker</h3>
+
+            <p>
+
+                Check ATS compatibility and discover missing keywords instantly.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card glass">
+
+            <i class="fa-solid fa-robot"></i>
+
+            <h3>AI Mock Interview</h3>
+
+            <p>
+
+                Practice technical and HR interviews with Gemini AI.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card glass">
+
+            <i class="fa-solid fa-road"></i>
+
+            <h3>Career Roadmap</h3>
+
+            <p>
+
+                Get a personalized roadmap to achieve your career goals.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card glass">
+
+            <i class="fa-solid fa-briefcase"></i>
+
+            <h3>Job Recommendations</h3>
+
+            <p>
+
+                Discover jobs that match your skills and profile.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card glass">
+
+            <i class="fa-solid fa-file-pdf"></i>
+
+            <h3>Download PDF Report</h3>
+
+            <p>
+
+                Export your complete AI analysis into a professional PDF report.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<footer>
+
+    <p>
+
+        © 2026 AI Career Copilot • Built with ❤️ using Flask & Gemini AI
+
+    </p>
+
+</footer>
+
+{% endblock %}

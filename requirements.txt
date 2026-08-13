@@ -1,0 +1,5 @@
+Flask
+PyMuPDF
+google-generativeai
+python-dotenv
+reportlab

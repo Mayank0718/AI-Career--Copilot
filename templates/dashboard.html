@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Career Copilot | Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #081120, #111827, #312E81);
+            color: white;
+            padding: 45px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .header h1 {
+            font-size: 50px;
+            font-weight: 800;
+
+            background: linear-gradient(90deg, #60A5FA, #A855F7);
+            -webkit-background-clip: text;
+            color: transparent;
+
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #CBD5E1;
+            font-size: 17px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.07);
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            backdrop-filter: blur(15px);
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 20px 50px rgba(124,58,237,0.25);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 18px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #94A3B8;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 12px 22px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            background: linear-gradient(90deg, #2563EB, #7C3AED);
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px rgba(124,58,237,0.4);
+        }
+
+        .stats {
+            margin-top: 30px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 20px;
+        }
+
+        .stat {
+            background: #0F172A;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .stat-number {
+            font-size: 35px;
+            font-weight: 800;
+
+            background: linear-gradient(90deg, #60A5FA, #A855F7);
+
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            color: #94A3B8;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .navigation {
+            margin-top: 35px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+
+            padding: 13px 24px;
+
+            border-radius: 12px;
+
+            color: white;
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.08);
+
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            text-align: center;
+
+            margin-top: 40px;
+
+            color: #64748B;
+
+            font-size: 14px;
+        }
+
+        @media(max-width: 768px) {
+
+            body {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 36px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <h1>🚀 AI Career Copilot</h1>
+
+        <p>
+            Your AI-powered career assistant
+        </p>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-number">AI</div>
+
+            <div class="stat-label">
+                Resume Analysis
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">ATS</div>
+
+            <div class="stat-label">
+                Resume Optimization
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">AI</div>
+
+            <div class="stat-label">
+                Mock Interview
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">JD</div>
+
+            <div class="stat-label">
+                Job Matching
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Features -->
+
+    <div class="grid" style="margin-top:30px;">
+
+
+        <div class="card">
+
+            <div class="icon">📄</div>
+
+            <h2>AI Resume Analyzer</h2>
+
+            <p>
+                Analyze your resume using Gemini AI and receive
+                ATS score, strengths, missing skills and career
+                recommendations.
+            </p>
+
+            <a href="/" class="btn">
+                Analyze Resume →
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🎯</div>
+
+            <h2>Resume vs Job Match</h2>
+
+            <p>
+                Compare your resume with a target job description
+                and discover your match score, missing skills and
+                keyword gaps.
+            </p>
+
+            <a href="/job-match" class="btn">
+                Match Job →
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🎤</div>
+
+            <h2>AI Mock Interview</h2>
+
+            <p>
+                Practice interview questions and receive AI-powered
+                feedback on your answers, weaknesses and improvements.
+            </p>
+
+            <a href="/mock-interview" class="btn">
+                Start Interview →
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">💬</div>
+
+            <h2>AI Career Coach</h2>
+
+            <p>
+                Ask career-related questions and get personalized
+                guidance using your uploaded resume.
+            </p>
+
+            <a href="/chat" class="btn">
+                Ask AI Coach →
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <div class="navigation">
+
+        <a href="/" class="nav-btn">
+            🏠 Home
+        </a>
+
+        <a href="/job-match" class="nav-btn">
+            🎯 Job Match
+        </a>
+
+        <a href="/mock-interview" class="nav-btn">
+            🎤 Mock Interview
+        </a>
+
+        <a href="/chat" class="nav-btn">
+            💬 Career Coach
+        </a>
+
+    </div>
+
+
+    <div class="footer">
+
+        Made with ❤️ using Flask + Gemini AI
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
