@@ -105,6 +105,41 @@ def extract_text(pdf_path):
 
 
 
+def get_default_analysis():
+    return {
+        "ats_score": 0,
+        "summary": "Gemini API is busy. Please try again.",
+        "strengths": [],
+        "missing_skills": [],
+        "technical_skills": [],
+        "career_suggestions": [],
+        "job_roles": [],
+        "interview_questions": []
+    }
+
+
+def normalize_list_items(items):
+    if not isinstance(items, list):
+        return []
+
+    clean_items = []
+    for item in items:
+        if isinstance(item, dict):
+            text = " ".join(
+                f"{key}: {value}" for key, value in item.items()
+                if value is not None and value != ""
+            )
+            if text:
+                clean_items.append(text)
+            else:
+                clean_items.append(str(item))
+        elif isinstance(item, list):
+            clean_items.extend(normalize_list_items(item))
+        elif item is not None:
+            clean_items.append(str(item))
+    return clean_items
+
+
 def analyze_resume(resume_text):
 
     prompt = f"""
@@ -136,25 +171,26 @@ Resume:
     text = ask_gemini(prompt)
 
     if text is None:
-        return {
-            "ats_score": 0,
-            "summary": "Gemini API is busy. Please try again.",
-            "strengths": [],
-            "missing_skills": [],
-            "technical_skills": [],
-            "career_suggestions": [],
-            "job_roles": [],
-            "interview_questions": []
-        }
+        return get_default_analysis()
 
     text = text.strip()
     text = text.replace("```json", "").replace("```", "").strip()
 
     try:
-        return json.loads(text)
+        analysis = json.loads(text)
+        if not isinstance(analysis, dict):
+            return get_default_analysis()
+
+        for key in ["strengths", "missing_skills", "technical_skills", "career_suggestions", "job_roles", "interview_questions"]:
+            analysis[key] = normalize_list_items(analysis.get(key, []))
+
+        if not isinstance(analysis.get("summary", ""), str):
+            analysis["summary"] = str(analysis.get("summary", ""))
+
+        return analysis
 
     except Exception:
-        ...
+        return get_default_analysis()
 
 
 @app.route("/upload", methods=["POST"])
@@ -201,6 +237,9 @@ def upload():
 
 def generate_pdf(filename, analysis):
 
+    if not isinstance(analysis, dict):
+        analysis = get_default_analysis()
+
     os.makedirs(app.config["REPORT_FOLDER"], exist_ok=True)
 
     pdf_path = os.path.join(app.config["REPORT_FOLDER"], "report.pdf")
@@ -222,43 +261,44 @@ def generate_pdf(filename, analysis):
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Professional Summary</b>", styles["Heading2"]))
-    story.append(Paragraph(analysis.get("summary", ""), styles["BodyText"]))
+    summary = str(analysis.get("summary", ""))
+    story.append(Paragraph(summary, styles["BodyText"]))
 
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Strengths</b>", styles["Heading2"]))
-    for item in analysis.get("strengths", []):
-        story.append(Paragraph("• " + item, styles["BodyText"]))
+    for item in normalize_list_items(analysis.get("strengths", [])):
+        story.append(Paragraph("• " + str(item), styles["BodyText"]))
 
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Missing Skills</b>", styles["Heading2"]))
-    for item in analysis.get("missing_skills", []):
-        story.append(Paragraph("• " + item, styles["BodyText"]))
+    for item in normalize_list_items(analysis.get("missing_skills", [])):
+        story.append(Paragraph("• " + str(item), styles["BodyText"]))
 
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Technical Skills</b>", styles["Heading2"]))
-    for item in analysis.get("technical_skills", []):
-        story.append(Paragraph("• " + item, styles["BodyText"]))
+    for item in normalize_list_items(analysis.get("technical_skills", [])):
+        story.append(Paragraph("• " + str(item), styles["BodyText"]))
 
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Career Suggestions</b>", styles["Heading2"]))
-    for item in analysis.get("career_suggestions", []):
-        story.append(Paragraph("• " + item, styles["BodyText"]))
+    for item in normalize_list_items(analysis.get("career_suggestions", [])):
+        story.append(Paragraph("• " + str(item), styles["BodyText"]))
 
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Best Job Roles</b>", styles["Heading2"]))
-    for item in analysis.get("job_roles", []):
-        story.append(Paragraph("• " + item, styles["BodyText"]))
+    for item in normalize_list_items(analysis.get("job_roles", [])):
+        story.append(Paragraph("• " + str(item), styles["BodyText"]))
 
     story.append(Paragraph("<br/>", styles["Normal"]))
 
     story.append(Paragraph("<b>Interview Questions</b>", styles["Heading2"]))
-    for item in analysis.get("interview_questions", []):
-        story.append(Paragraph("• " + item, styles["BodyText"]))
+    for item in normalize_list_items(analysis.get("interview_questions", [])):
+        story.append(Paragraph("• " + str(item), styles["BodyText"]))
 
     doc.build(story)
 
