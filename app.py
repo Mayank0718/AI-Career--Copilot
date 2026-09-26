@@ -1,7 +1,12 @@
 import os
 import json
+
 import fitz
-import google.generativeai as genai
+
+try:
+    import google.generativeai as genai
+except ImportError:
+    genai = None
 
 from dotenv import load_dotenv
 from flask import Flask, render_template, request,send_file
@@ -12,13 +17,25 @@ from reportlab.lib.styles import getSampleStyleSheet
 # Flask App
 # -------------------------------
 
+def get_writable_dir(name):
+    default_path = os.path.join(os.getcwd(), name)
+    if os.access(os.getcwd(), os.W_OK):
+        target = default_path
+    else:
+        target = os.path.join("/tmp", name)
+
+    os.makedirs(target, exist_ok=True)
+    return target
+
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key")
 
-UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", get_writable_dir("uploads"))
+REPORT_FOLDER = os.getenv("REPORT_FOLDER", get_writable_dir("reports"))
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["REPORT_FOLDER"] = REPORT_FOLDER
 
 # -------------------------------
 # Gemini API
@@ -29,7 +46,7 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 model = None
 
-if API_KEY:
+if API_KEY and genai is not None:
     genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel("gemini-2.5-flash")
 
@@ -184,9 +201,9 @@ def upload():
 
 def generate_pdf(filename, analysis):
 
-    os.makedirs("reports", exist_ok=True)
+    os.makedirs(app.config["REPORT_FOLDER"], exist_ok=True)
 
-    pdf_path = os.path.join("reports", "report.pdf")
+    pdf_path = os.path.join(app.config["REPORT_FOLDER"], "report.pdf")
 
     doc = SimpleDocTemplate(pdf_path, pagesize=A4)
 
@@ -249,8 +266,12 @@ def generate_pdf(filename, analysis):
 
 @app.route("/download")
 def download():
+    pdf_path = os.path.join(app.config["REPORT_FOLDER"], "report.pdf")
+    if not os.path.exists(pdf_path):
+        return "No report available yet. Please upload a resume first.", 404
+
     return send_file(
-        "reports/report.pdf",
+        pdf_path,
         as_attachment=True
     )
 
