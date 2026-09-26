@@ -13,9 +13,9 @@ from reportlab.lib.styles import getSampleStyleSheet
 # -------------------------------
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key")
 
-UPLOAD_FOLDER = "uploads"
-
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -27,16 +27,21 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 load_dotenv()
 
 API_KEY = os.getenv("GEMINI_API_KEY")
+model = None
 
-genai.configure(api_key=API_KEY)
-
-model = genai.GenerativeModel("gemini-2.5-flash")
+if API_KEY:
+    genai.configure(api_key=API_KEY)
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
 # -------------------------------
 # Gemini Wrapper
 # -------------------------------
 
 def ask_gemini(prompt):
+    if model is None:
+        print("Gemini API key is missing. Set GEMINI_API_KEY in your environment.")
+        return None
+
     try:
         response = model.generate_content(prompt)
         return response.text
@@ -88,6 +93,8 @@ def analyze_resume(resume_text):
     prompt = f"""
 You are an expert ATS Resume Analyzer.
 
+I am an Engineering student , currrently searching for a job and my target roles are trainee software engineer.
+Also consider resume does not contains the engineering stream, do not proceed for analyze resume 
 Analyze the following resume.
 
 Return ONLY valid JSON.
@@ -429,4 +436,6 @@ Give output in this format:
     )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.getenv("PORT", 5000))
+    debug_mode = os.getenv("FLASK_DEBUG", "true").lower() in ("1", "true", "yes")
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)
